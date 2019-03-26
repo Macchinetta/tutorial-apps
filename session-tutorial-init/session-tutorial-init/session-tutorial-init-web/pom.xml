@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.session</groupId>
         <artifactId>session-tutorial-init</artifactId>
-        <version>1.6.0.RELEASE</version>
+        <version>1.6.1.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -64,7 +64,24 @@
                 </dependency>
             </dependencies>
         </profile>
-    </profiles>
+        <profile>
+      <id>jdk11</id>
+      <activation>
+        <jdk>11</jdk>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-core</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-impl</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+
+        </profiles>
 
     <dependencies>
         <dependency>
@@ -123,7 +140,7 @@
 <!--         </dependency> -->
 <!--         <dependency> -->
 <!--             <groupId>com.oracle.jdbc</groupId> -->
-<!--             <artifactId>ojdbc7</artifactId> -->
+<!--             <artifactId>ojdbc8</artifactId> -->
 <!--             <scope>runtime</scope> -->
 <!--         </dependency> -->
         <!-- == End Database == -->

@@ -18,7 +18,7 @@
         </c:if>
 
         <div>
-            <a id="info" href="${f:h(pageContext.request.contextPath)}/accounts" />
+            <a id="info" href="${f:h(pageContext.request.contextPath)}/accounts">
                 Account Information
             </a>
         </div>

@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.todo</groupId>
         <artifactId>todo-api-mybatis3-multi</artifactId>
-        <version>1.6.0.RELEASE</version>
+        <version>1.6.1.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -123,7 +123,7 @@
 <!--         </dependency> -->
 <!--         <dependency> -->
 <!--             <groupId>com.oracle.jdbc</groupId> -->
-<!--             <artifactId>ojdbc7</artifactId> -->
+<!--             <artifactId>ojdbc8</artifactId> -->
 <!--             <scope>runtime</scope> -->
 <!--         </dependency> -->
         <!-- == End Database == -->
