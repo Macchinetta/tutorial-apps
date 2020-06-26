@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.securelogin</groupId>
         <artifactId>secure-login</artifactId>
-        <version>1.6.1.RELEASE</version>
+        <version>1.7.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -156,7 +156,7 @@
 <!--             <scope>runtime</scope> -->
 <!--         </dependency> -->
 <!--         <dependency> -->
-<!--             <groupId>com.oracle.jdbc</groupId> -->
+<!--             <groupId>com.oracle.ojdbc</groupId> -->
 <!--             <artifactId>ojdbc8</artifactId> -->
 <!--             <scope>runtime</scope> -->
 <!--         </dependency> -->
@@ -166,11 +166,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
