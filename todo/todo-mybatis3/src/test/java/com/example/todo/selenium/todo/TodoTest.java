@@ -157,8 +157,7 @@ public class TodoTest extends FunctionTestSupport {
     }
 
     /**
-     * Asserts that error message is showed. The count of un-finished Todo must
-     * not be over 5.
+     * Asserts that error message is showed. The count of un-finished Todo must not be over 5.
      */
     @Test
     public void testUnfinishedSize() throws IOException {
