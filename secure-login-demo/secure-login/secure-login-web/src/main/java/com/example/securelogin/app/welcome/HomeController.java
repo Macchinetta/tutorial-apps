@@ -51,8 +51,8 @@ public class HomeController {
 
         model.addAttribute("account", account);
 
-        if (accountSharedService
-                .isCurrentPasswordExpired(account.getUsername())) {
+        if (accountSharedService.isCurrentPasswordExpired(account
+                .getUsername())) {
             ResultMessages messages = ResultMessages.warning().add(
                     "w.sl.pe.0001");
             model.addAttribute(messages);
@@ -60,8 +60,8 @@ public class HomeController {
 
         LocalDateTime lastLoginDate = userDetails.getLastLoginDate();
         if (lastLoginDate != null) {
-            model.addAttribute("lastLoginDate", lastLoginDate
-                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            model.addAttribute("lastLoginDate", lastLoginDate.format(
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         }
 
         return "welcome/home";
