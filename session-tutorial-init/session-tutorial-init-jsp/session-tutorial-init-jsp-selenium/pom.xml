@@ -4,7 +4,7 @@
     <artifactId>session-tutorial-init-jsp-selenium</artifactId>
     <packaging>jar</packaging>
     <parent>
-        <version>1.9.0.RELEASE</version>
+        <version>1.9.1.RELEASE</version>
         <artifactId>session-tutorial-init-jsp</artifactId>
         <groupId>com.example.session</groupId>
         <relativePath>../pom.xml</relativePath>

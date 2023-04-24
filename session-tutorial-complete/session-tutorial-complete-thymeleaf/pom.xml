@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example.session</groupId>
     <artifactId>session-tutorial-complete-thymeleaf</artifactId>
-    <version>1.9.0.RELEASE</version>
+    <version>1.9.1.RELEASE</version>
     <packaging>pom</packaging>
     <parent>
         <groupId>org.terasoluna.gfw</groupId>
         <artifactId>terasoluna-gfw-parent</artifactId>
-        <version>5.8.0.RELEASE</version>
+        <version>5.8.1.RELEASE</version>
     </parent>
 
     <name>Macchinetta Server Framework (1.x) Web Blank Multi Project</name>
@@ -148,17 +148,17 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>session-tutorial-complete-thymeleaf-domain</artifactId>
-                <version>1.9.0.RELEASE</version>
+                <version>1.9.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>session-tutorial-complete-thymeleaf-web</artifactId>
-                <version>1.9.0.RELEASE</version>
+                <version>1.9.1.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>session-tutorial-complete-thymeleaf-env</artifactId>
-                <version>1.9.0.RELEASE</version>
+                <version>1.9.1.RELEASE</version>
             </dependency>
 
             <!-- == Begin Database == -->

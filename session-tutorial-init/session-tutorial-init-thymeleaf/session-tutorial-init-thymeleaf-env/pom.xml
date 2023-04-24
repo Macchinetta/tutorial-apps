@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.session</groupId>
         <artifactId>session-tutorial-init-thymeleaf</artifactId>
-        <version>1.9.0.RELEASE</version>
+        <version>1.9.1.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

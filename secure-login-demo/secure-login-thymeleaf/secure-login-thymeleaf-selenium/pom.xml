@@ -4,7 +4,7 @@
     <artifactId>secure-login-thymeleaf-selenium</artifactId>
     <packaging>jar</packaging>
     <parent>
-        <version>1.9.0.RELEASE</version>
+        <version>1.9.1.RELEASE</version>
         <artifactId>secure-login-thymeleaf</artifactId>
         <groupId>com.example.securelogin</groupId>
         <relativePath>../pom.xml</relativePath>
