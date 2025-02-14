@@ -9,8 +9,8 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <p>select a category</p>
@@ -37,7 +37,7 @@
 </div>
 <div>
     <p>
-        <fmt:formatNumber value="${page.totalElements}" /> results <br>
+        <fmt:formatNumber value="${page.totalElements}" /> results <br />
         ${f:h(page.number + 1) } / ${f:h(page.totalPages)} Pages
     </p>
 </div>

@@ -8,8 +8,8 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <table>
@@ -27,19 +27,16 @@
         </tr>
     </table>
 
-        <form:form method="post"
-        action="${pageContext.request.contextPath}/goods/addToCart"
-        modelAttribute="AddToCartForm">
+    <form:form method="post" action="${pageContext.request.contextPath}/goods/addToCart" modelAttribute="AddToCartForm">
         Quantity<input type="text" id="quantity" name="quantity" value="1" />
         <input type="hidden" name="goodsId" value="${f:h(goods.id)}" />
         <input type="submit" id="add" value="add" />
     </form:form>
 
-        <form method="get" action="${pageContext.request.contextPath}/goods">
+    <form method="get" action="${pageContext.request.contextPath}/goods">
         <input type="submit" id="home" value="home" />
     </form>
 </div>
-
 <div>
     <spring:eval var="cart" expression="@cart" />
     <form method="get" action="${pageContext.request.contextPath}/cart">

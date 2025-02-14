@@ -9,14 +9,12 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <spring:eval var="cart" expression="@cart" />
-    <form:form method="post"
-        action="${pageContext.request.contextPath}/cart"
-        modelAttribute="cartForm">
+    <form:form method="post" action="${pageContext.request.contextPath}/cart" modelAttribute="cartForm">
         <form:errors path="removedItemsIds" cssClass="error-messages" />
         <t:messagesPanel />
         <table>

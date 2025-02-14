@@ -9,11 +9,10 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
-
     <h3>Your order has been accepted</h3>
     <table>
         <tr>
@@ -22,7 +21,7 @@
         </tr>
         <tr>
             <td><label for="orderDate">order date</label></td>
-            <td id="orderDate"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd　hh:mm:ss" /></td>
+            <td id="orderDate"><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
         </tr>
     </table>
     <table>

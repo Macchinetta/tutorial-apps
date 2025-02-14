@@ -2,18 +2,15 @@
 
 <div style="display: inline-flex">
     welcome&nbsp;&nbsp; <span id="userName">${f:h(userDetails.account.name)}</span>
-    <form:form method="post"
-        action="${pageContext.request.contextPath}/logout">
+    <form:form method="post" action="${pageContext.request.contextPath}/logout">
         <input type="submit" id="logout" value="logout" />
     </form:form>
-    <form method="get"
-        action="${pageContext.request.contextPath}/account/update">
-        <input type="submit" name="form1" id="updateAccount"
-            value="Account Update" />
+    <form method="get" action="${pageContext.request.contextPath}/account/update">
+        <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <spring:eval var="cart" expression="@cart" />

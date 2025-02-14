@@ -1,7 +1,5 @@
 <div>
-
     <form:form action="${pageContext.request.contextPath}/account/create" method="post">
-
         <h3>Your account will be created with below information. Please push "create" button if it's OK.</h3>
         <table>
             <tr>
@@ -30,7 +28,8 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><input type="submit" name="redoForm" id="back" value="back" />
+                <td>
+                    <input type="submit" name="redoForm" id="back" value="back" />
                     <input type="submit" id="create" value="create" />
                 </td>
             </tr>

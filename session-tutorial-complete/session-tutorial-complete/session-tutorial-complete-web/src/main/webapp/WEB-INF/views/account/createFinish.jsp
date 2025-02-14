@@ -1,5 +1,4 @@
 <div>
-
     <h3>Your account has created.</h3>
     <table>
         <tr>
@@ -31,5 +30,4 @@
     <form method="get" action="${pageContext.request.contextPath}/account/create">
         <input type="submit" id="home" name="home" value="Login page" />
     </form>
-
 </div>

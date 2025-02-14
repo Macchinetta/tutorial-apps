@@ -1,7 +1,5 @@
 <div>
-
     <form:form action="${pageContext.request.contextPath}/account/update" method="post">
-
         <h3>Your account will be updated with below information. Please push "update" button if it's OK.</h3>
         <table>
             <tr>
@@ -38,7 +36,8 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><input type="submit" name="redoForm2" id="back" value="back" />
+                <td>
+                    <input type="submit" name="redoForm2" id="back" value="back" />
                     <input type="submit" id="update" value="update" />
                 </td>
             </tr>

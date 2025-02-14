@@ -8,8 +8,8 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <table>
@@ -31,4 +31,3 @@
         <input type="submit" id="home" value="home" />
     </form>
 </div>
-

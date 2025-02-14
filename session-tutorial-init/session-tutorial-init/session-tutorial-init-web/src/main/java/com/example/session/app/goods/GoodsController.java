@@ -16,7 +16,6 @@
 package com.example.session.app.goods;
 
 import javax.inject.Inject;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.example.session.domain.model.Goods;
 import com.example.session.domain.service.goods.GoodsService;
 
@@ -43,9 +41,7 @@ public class GoodsController {
 
     @GetMapping
     public String showGoods(GoodViewForm form, Pageable pageable, Model model) {
-
-        Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),
-                pageable);
+        Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(), pageable);
         model.addAttribute("page", page);
         return "goods/showGoods";
     }

@@ -9,8 +9,8 @@
         <input type="submit" name="form1" id="updateAccount" value="Account Update" />
     </form>
 </div>
-<br>
-<br>
+<br />
+<br />
 
 <div>
     <p>select a category</p>
@@ -31,9 +31,8 @@
             <tr>
                 <td><a id="${f:h(goods.name)}" href="${pageContext.request.contextPath}/goods/${f:h(goods.id)}">${f:h(goods.name)}</a></td>
                 <td><fmt:formatNumber value="${f:h(goods.price)}" type="CURRENCY" currencySymbol="&yen;" maxFractionDigits="0" /></td>
-                <td><form:form method="post"
-                        action="${pageContext.request.contextPath}/goods/addToCart"
-                        modelAttribute="goodAddForm">
+                <td>
+                    <form:form method="post" action="${pageContext.request.contextPath}/goods/addToCart" modelAttribute="goodAddForm">
                         <input type="text" name="quantity" id="quantity${status.index}" value="1" />
                         <input type="hidden" name="goodsId" value="${f:h(goods.id)}" />
                         <input type="submit" id="add${status.index}" value="add" />
@@ -46,7 +45,7 @@
 </div>
 <div>
     <p>
-        <fmt:formatNumber value="${page.totalElements}" /> results <br>
+        <fmt:formatNumber value="${page.totalElements}" /> results <br />
         ${f:h(page.number + 1) } / ${f:h(page.totalPages)} Pages
     </p>
 </div>

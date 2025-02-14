@@ -1,5 +1,4 @@
 <div>
-
     <h3>Your account has updated.</h3>
     <table>
         <tr>
@@ -39,5 +38,4 @@
     <form method="get" action="${pageContext.request.contextPath}/account/update">
         <input type="submit" name="home" id="home" value="home" />
     </form>
-
 </div>

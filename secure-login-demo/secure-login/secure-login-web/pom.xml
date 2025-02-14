@@ -6,9 +6,14 @@
     <parent>
         <groupId>com.example.securelogin</groupId>
         <artifactId>secure-login</artifactId>
-        <version>1.8.3.RELEASE</version>
+        <version>1.8.4.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <scm>
+        <connection>scm:git:git://github.com/Macchinetta/macchinetta-web-multi-blank.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Macchinetta/macchinetta-web-multi-blank.git</developerConnection>
+        <url>https://github.com/Macchinetta/macchinetta-web-multi-blank</url>
+    </scm>
 
     <build>
         <plugins>
@@ -59,7 +64,6 @@
         <dependency>
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
-            <version>1.6.4</version>
         </dependency>
     </dependencies>
         </profile>
@@ -94,7 +98,6 @@
         <dependency>
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
-            <version>1.6.4</version>
         </dependency>
     </dependencies>
         </profile>
@@ -150,16 +153,16 @@
         <!--  JDBC Driver is normally provided by application server .
               But if you want to include JDBC Driver in the application,
               add this dependency . -->
-<!--         <dependency> -->
-<!--             <groupId>org.postgresql</groupId> -->
-<!--             <artifactId>postgresql</artifactId> -->
-<!--             <scope>runtime</scope> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>com.oracle.database.jdbc</groupId> -->
-<!--             <artifactId>ojdbc8</artifactId> -->
-<!--             <scope>runtime</scope> -->
-<!--         </dependency> -->
+        <!--         <dependency> -->
+        <!--             <groupId>org.postgresql</groupId> -->
+        <!--             <artifactId>postgresql</artifactId> -->
+        <!--             <scope>runtime</scope> -->
+        <!--         </dependency> -->
+        <!--         <dependency> -->
+        <!--             <groupId>com.oracle.database.jdbc</groupId> -->
+        <!--             <artifactId>ojdbc8</artifactId> -->
+        <!--             <scope>runtime</scope> -->
+        <!--         </dependency> -->
         <!-- == End Database == -->
 
         <!-- == Begin Unit Test == -->
@@ -227,7 +230,6 @@
         <dependency>
             <groupId>org.passay</groupId>
             <artifactId>passay</artifactId>
-            <version>1.6.4</version>
         </dependency>
     </dependencies>
 </project>
