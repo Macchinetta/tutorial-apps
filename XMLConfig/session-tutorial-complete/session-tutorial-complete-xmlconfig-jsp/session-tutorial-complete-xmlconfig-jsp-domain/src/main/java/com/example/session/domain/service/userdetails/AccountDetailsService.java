@@ -21,10 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
-
 import com.example.session.domain.model.Account;
 import com.example.session.domain.service.account.AccountService;
-
 import jakarta.inject.Inject;
 
 @Service
@@ -35,8 +33,7 @@ public class AccountDetailsService implements UserDetailsService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(
-            String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         try {
             Account account = accountService.findOne(email);

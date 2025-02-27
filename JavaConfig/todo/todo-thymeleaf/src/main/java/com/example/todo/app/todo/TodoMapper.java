@@ -17,7 +17,6 @@ package com.example.todo.app.todo;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import com.example.todo.domain.model.Todo;
 
 @Mapper

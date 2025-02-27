@@ -17,7 +17,6 @@ package com.example.securelogin.app.account;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
 import com.example.securelogin.domain.model.Account;
 
 @Mapper

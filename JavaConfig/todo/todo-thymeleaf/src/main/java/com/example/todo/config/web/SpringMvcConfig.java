@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Pattern;
-
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -48,7 +47,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 /**
  * Configure SpringMVC.
  */
-@ComponentScan(basePackages = { "com.example.todo.app" })
+@ComponentScan(basePackages = {"com.example.todo.app"})
 @EnableAspectJAutoProxy
 @EnableWebMvc
 @Configuration
@@ -71,8 +70,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * {@inheritDoc}
      */
     @Override
-    public void addArgumentResolvers(
-            List<HandlerMethodArgumentResolver> argumentResolvers) {
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(pageableHandlerMethodArgumentResolver());
         argumentResolvers.add(authenticationPrincipalArgumentResolver());
     }
@@ -99,8 +97,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * {@inheritDoc}
      */
     @Override
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
@@ -109,9 +106,9 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations(
-                "/resources/", "classpath:META-INF/resources/").setCachePeriod(
-                        60 * 60);
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/", "classpath:META-INF/resources/")
+                .setCachePeriod(60 * 60);
     }
 
     /**
@@ -129,8 +126,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * @param registry {@link InterceptorRegistry}
      * @param interceptor {@link HandlerInterceptor}
      */
-    private void addInterceptor(InterceptorRegistry registry,
-            HandlerInterceptor interceptor) {
+    private void addInterceptor(InterceptorRegistry registry, HandlerInterceptor interceptor) {
         registry.addInterceptor(interceptor).addPathPatterns("/**")
                 .excludePathPatterns("/resources/**");
     }
@@ -221,7 +217,8 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      */
     @Bean("requestDataValueProcessor")
     public RequestDataValueProcessor requestDataValueProcessor() {
-        return new CompositeRequestDataValueProcessor(csrfRequestDataValueProcessor(), transactionTokenRequestDataValueProcessor());
+        return new CompositeRequestDataValueProcessor(csrfRequestDataValueProcessor(),
+                transactionTokenRequestDataValueProcessor());
     }
 
     /**
@@ -258,23 +255,21 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         Properties exceptionMappings = new Properties();
         exceptionMappings.setProperty("ResourceNotFoundException",
                 "common/error/resourceNotFoundError");
-        exceptionMappings.setProperty("BusinessException",
-                "common/error/businessError");
+        exceptionMappings.setProperty("BusinessException", "common/error/businessError");
         exceptionMappings.setProperty("InvalidTransactionTokenException",
                 "common/error/transactionTokenError");
-        exceptionMappings.setProperty(".DataAccessException",
-                "common/error/dataAccessError");
+        exceptionMappings.setProperty(".DataAccessException", "common/error/dataAccessError");
         bean.setExceptionMappings(exceptionMappings);
 
         Properties statusCodes = new Properties();
-        statusCodes.setProperty("common/error/resourceNotFoundError", String
-                .valueOf(HttpStatus.NOT_FOUND.value()));
-        statusCodes.setProperty("common/error/businessError", String.valueOf(
-                HttpStatus.CONFLICT.value()));
-        statusCodes.setProperty("common/error/transactionTokenError", String
-                .valueOf(HttpStatus.CONFLICT.value()));
-        statusCodes.setProperty("common/error/dataAccessError", String.valueOf(
-                HttpStatus.INTERNAL_SERVER_ERROR.value()));
+        statusCodes.setProperty("common/error/resourceNotFoundError",
+                String.valueOf(HttpStatus.NOT_FOUND.value()));
+        statusCodes.setProperty("common/error/businessError",
+                String.valueOf(HttpStatus.CONFLICT.value()));
+        statusCodes.setProperty("common/error/transactionTokenError",
+                String.valueOf(HttpStatus.CONFLICT.value()));
+        statusCodes.setProperty("common/error/dataAccessError",
+                String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
         bean.setStatusCodes(statusCodes);
 
         bean.setDefaultErrorView("common/error/systemError");
@@ -291,14 +286,16 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     @Bean("handlerExceptionResolverLoggingInterceptor")
     public HandlerExceptionResolverLoggingInterceptor handlerExceptionResolverLoggingInterceptor(
             ExceptionLogger exceptionLogger) {
-        HandlerExceptionResolverLoggingInterceptor bean = new HandlerExceptionResolverLoggingInterceptor();
+        HandlerExceptionResolverLoggingInterceptor bean =
+                new HandlerExceptionResolverLoggingInterceptor();
         bean.setExceptionLogger(exceptionLogger);
         return bean;
     }
 
     /**
      * Configure messages logging AOP advisor.
-     * @param handlerExceptionResolverLoggingInterceptor Bean defined by #handlerExceptionResolverLoggingInterceptor
+     * @param handlerExceptionResolverLoggingInterceptor Bean defined by
+     *        #handlerExceptionResolverLoggingInterceptor
      * @see #handlerExceptionResolverLoggingInterceptor(ExceptionLogger)
      * @return Advisor configured for PointCut
      */

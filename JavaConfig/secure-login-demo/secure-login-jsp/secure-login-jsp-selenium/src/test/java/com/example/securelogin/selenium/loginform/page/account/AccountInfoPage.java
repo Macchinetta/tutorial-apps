@@ -16,7 +16,6 @@
 package com.example.securelogin.selenium.loginform.page.account;
 
 import static org.openqa.selenium.By.id;
-
 import com.example.securelogin.selenium.loginform.page.AuthenticationRequiredPage;
 import com.example.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;
 import com.github.macchinetta.tutorial.selenium.WebDriverOperations;
@@ -27,8 +26,7 @@ public class AccountInfoPage extends AuthenticationRequiredPage {
         url = "/accounts";
     }
 
-    public AccountInfoPage(WebDriverOperations webDriverOperations,
-            String applicationContextURL) {
+    public AccountInfoPage(WebDriverOperations webDriverOperations, String applicationContextURL) {
         super(webDriverOperations, applicationContextURL);
     }
 

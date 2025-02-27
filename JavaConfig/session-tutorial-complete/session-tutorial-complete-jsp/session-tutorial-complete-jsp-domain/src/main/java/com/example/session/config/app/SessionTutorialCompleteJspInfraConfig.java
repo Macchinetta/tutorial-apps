@@ -1,7 +1,6 @@
 package com.example.session.config.app;
 
 import javax.sql.DataSource;
-
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +14,11 @@ import com.example.session.config.app.mybatis.MybatisConfig;
  */
 @Configuration
 @MapperScan("com.example.session.domain.repository")
-@Import({ SessionTutorialCompleteJspEnvConfig.class })
+@Import({SessionTutorialCompleteJspEnvConfig.class})
 public class SessionTutorialCompleteJspInfraConfig {
 
     /**
-     * Configure {@link SqlSessionFactory} bean.
+     * Configure {@link SqlSessionFactoryBean} bean.
      * @param dataSource DataSource
      * @see com.example.session.config.app.SessionTutorialCompleteJspEnvConfig#dataSource()
      * @return Bean of configured {@link SqlSessionFactoryBean}

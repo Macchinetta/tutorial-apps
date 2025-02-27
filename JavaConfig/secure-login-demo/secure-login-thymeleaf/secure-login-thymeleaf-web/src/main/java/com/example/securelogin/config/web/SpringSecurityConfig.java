@@ -1,7 +1,7 @@
 package com.example.securelogin.config.web;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 import java.util.LinkedHashMap;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
@@ -22,9 +22,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.terasoluna.gfw.security.web.logging.UserIdMDCPutFilter;
-
 import com.example.securelogin.app.common.security.CacheClearLogoutSuccessHandler;
 
 /**
@@ -40,8 +38,7 @@ public class SpringSecurityConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-                new AntPathRequestMatcher("/resources/**"));
+        return web -> web.ignoring().requestMatchers(antMatcher("/resources/**"));
     }
 
     /**
@@ -52,28 +49,20 @@ public class SpringSecurityConfig {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.formLogin(login -> login
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
+        http.formLogin(login -> login.loginPage("/login").loginProcessingUrl("/login")
+                .usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/", true));
-        http.logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .deleteCookies("JSESSIONID"));
-        http.exceptionHandling(ex -> ex.accessDeniedHandler(
-                accessDeniedHandler()));
-        http.addFilterAfter(userIdMDCPutFilter(),
-                AnonymousAuthenticationFilter.class);
+        http.logout(logout -> logout.logoutUrl("/logout")
+                .logoutSuccessHandler(logoutSuccessHandler()).deleteCookies("JSESSIONID"));
+        http.exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler()));
+        http.addFilterAfter(userIdMDCPutFilter(), AnonymousAuthenticationFilter.class);
         http.sessionManagement(Customizer.withDefaults());
-        http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/accounts/create")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/reissue/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/api/receivedmail")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/unlock/**")).hasRole("ADMIN")
-                .requestMatchers(new AntPathRequestMatcher("/**")).authenticated());
+        http.authorizeHttpRequests(authz -> authz.requestMatchers(antMatcher("/login")).permitAll()
+                .requestMatchers(antMatcher("/accounts/create")).permitAll()
+                .requestMatchers(antMatcher("/reissue/**")).permitAll()
+                .requestMatchers(antMatcher("/api/receivedmail")).permitAll()
+                .requestMatchers(antMatcher("/unlock/**")).hasRole("ADMIN")
+                .requestMatchers(antMatcher("/**")).authenticated());
 
         return http.build();
     }
@@ -85,8 +74,7 @@ public class SpringSecurityConfig {
      * @return Bean of configured {@link AuthenticationProvider}
      */
     @Bean
-    public AuthenticationProvider authProvider(
-            UserDetailsService loggedInUserDetailsService,
+    public AuthenticationProvider authProvider(UserDetailsService loggedInUserDetailsService,
             @Qualifier("passwordEncoder") PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(loggedInUserDetailsService);
@@ -100,21 +88,18 @@ public class SpringSecurityConfig {
      */
     @Bean("accessDeniedHandler")
     public AccessDeniedHandler accessDeniedHandler() {
-        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers = new LinkedHashMap<>();
+        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers =
+                new LinkedHashMap<>();
 
         // Invalid CSRF authenticator error handler
         AccessDeniedHandlerImpl invalidCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        invalidCsrfTokenErrorHandler.setErrorPage(
-                "/common/error/invalidCsrfTokenError");
-        errorHandlers.put(InvalidCsrfTokenException.class,
-                invalidCsrfTokenErrorHandler);
+        invalidCsrfTokenErrorHandler.setErrorPage("/common/error/invalidCsrfTokenError");
+        errorHandlers.put(InvalidCsrfTokenException.class, invalidCsrfTokenErrorHandler);
 
         // Missing CSRF authenticator error handler
         AccessDeniedHandlerImpl missingCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        missingCsrfTokenErrorHandler.setErrorPage(
-                "/common/error/missingCsrfTokenError");
-        errorHandlers.put(MissingCsrfTokenException.class,
-                missingCsrfTokenErrorHandler);
+        missingCsrfTokenErrorHandler.setErrorPage("/common/error/missingCsrfTokenError");
+        errorHandlers.put(MissingCsrfTokenException.class, missingCsrfTokenErrorHandler);
 
         // Default error handler
         AccessDeniedHandlerImpl defaultErrorHandler = new AccessDeniedHandlerImpl();

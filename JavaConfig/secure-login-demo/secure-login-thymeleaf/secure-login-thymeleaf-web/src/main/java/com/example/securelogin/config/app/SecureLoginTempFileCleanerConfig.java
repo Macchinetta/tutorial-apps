@@ -16,22 +16,18 @@
 package com.example.securelogin.config.app;
 
 import java.util.concurrent.Executor;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.PeriodicTrigger;
-
 import com.example.securelogin.domain.common.scheduled.UnnecessaryReissueInfoCleaner;
-
 import jakarta.inject.Inject;;
 
 /**
  * Scheduler definition.
  */
 @Configuration
-public class SecureLoginTempFileCleanerConfig implements
-                                                 SchedulingConfigurer {
+public class SecureLoginTempFileCleanerConfig implements SchedulingConfigurer {
 
     /**
      * Bean of Executor
@@ -57,7 +53,6 @@ public class SecureLoginTempFileCleanerConfig implements
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.setScheduler(tempFileTaskScheduler);
-        taskRegistrar.addTriggerTask(() -> tempFileCleaner.cleanup(),
-                tempFileCleanTrigger);
+        taskRegistrar.addTriggerTask(() -> tempFileCleaner.cleanup(), tempFileCleanTrigger);
     }
 }

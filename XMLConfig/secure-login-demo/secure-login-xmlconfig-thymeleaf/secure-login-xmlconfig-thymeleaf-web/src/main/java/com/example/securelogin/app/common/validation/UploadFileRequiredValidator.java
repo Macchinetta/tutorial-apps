@@ -17,18 +17,15 @@ package com.example.securelogin.app.common.validation;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class UploadFileRequiredValidator implements
-                                         ConstraintValidator<UploadFileRequired, MultipartFile> {
+public class UploadFileRequiredValidator
+        implements ConstraintValidator<UploadFileRequired, MultipartFile> {
 
     @Override
-    public boolean isValid(MultipartFile multipartFile,
-            ConstraintValidatorContext context) {
-        return multipartFile != null && StringUtils.hasLength(multipartFile
-                .getOriginalFilename());
+    public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
+        return multipartFile != null && StringUtils.hasLength(multipartFile.getOriginalFilename());
     }
 
 }

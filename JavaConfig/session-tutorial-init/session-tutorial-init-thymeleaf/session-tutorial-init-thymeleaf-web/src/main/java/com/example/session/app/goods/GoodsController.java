@@ -23,10 +23,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.example.session.domain.model.Goods;
 import com.example.session.domain.service.goods.GoodsService;
-
 import jakarta.inject.Inject;
 
 @Controller
@@ -44,15 +42,13 @@ public class GoodsController {
     @GetMapping
     public String showGoods(GoodViewForm form, Pageable pageable, Model model) {
 
-        Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),
-                pageable);
+        Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(), pageable);
         model.addAttribute("page", page);
         return "goods/showGoods";
     }
 
     @GetMapping("/{goodsId}")
-    public String showGoodsDetail(@PathVariable("goodsId") String goodsId,
-            Model model) {
+    public String showGoodsDetail(@PathVariable("goodsId") String goodsId, Model model) {
 
         Goods goods = goodsService.findOne(goodsId);
         model.addAttribute(goods);

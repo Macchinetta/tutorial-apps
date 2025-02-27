@@ -17,8 +17,7 @@ import org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.example.session.domain"}) // (1)
-@Import({ SessionTutorialCompleteJspInfraConfig.class,
-    SessionTutorialCompleteJspCodeListConfig.class })
+@Import({SessionTutorialCompleteJspInfraConfig.class, SessionTutorialCompleteJspCodeListConfig.class})
 public class SessionTutorialCompleteJspDomainConfig {
 
     /**
@@ -45,8 +44,7 @@ public class SessionTutorialCompleteJspDomainConfig {
     public Advisor resultMessagesLoggingInterceptorAdvisor(
             ResultMessagesLoggingInterceptor resultMessagesLoggingInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(
-                "@within(org.springframework.stereotype.Service)");
+        pointcut.setExpression("@within(org.springframework.stereotype.Service)");
         return new DefaultPointcutAdvisor(pointcut, resultMessagesLoggingInterceptor);
     }
 }

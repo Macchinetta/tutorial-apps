@@ -17,14 +17,11 @@ package com.example.securelogin.app.mail;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.securelogin.domain.model.ReceivedMail;
 import com.example.securelogin.domain.service.mail.PasswordReissueMailSharedService;
-
 import jakarta.inject.Inject;
 
 @RestController

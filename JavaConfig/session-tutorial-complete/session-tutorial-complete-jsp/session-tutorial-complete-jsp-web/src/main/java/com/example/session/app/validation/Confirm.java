@@ -18,20 +18,17 @@ package com.example.session.app.validation;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
 import com.example.session.app.validation.Confirm.List;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = { ConfirmValidator.class })
-@Target({ TYPE, ANNOTATION_TYPE })
+@Constraint(validatedBy = {ConfirmValidator.class})
+@Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Repeatable(List.class)
 public @interface Confirm {
@@ -46,7 +43,7 @@ public @interface Confirm {
      */
     String field();
 
-    @Target({ TYPE, ANNOTATION_TYPE })
+    @Target({TYPE, ANNOTATION_TYPE})
     @Retention(RUNTIME)
     @Documented
     public @interface List {

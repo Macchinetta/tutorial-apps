@@ -17,7 +17,6 @@ package com.example.todo.api.todo;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 

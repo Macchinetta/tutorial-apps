@@ -1,9 +1,7 @@
 package com.example.todo.config.app;
 
 import java.time.Duration;
-
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -114,16 +112,16 @@ public class TodoJspMybatis3EnvConfig {
         bean.setDataSource(dataSource());
 
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("/database/"
-                + database + "-schema.sql"));
-        databasePopulator.addScript(new ClassPathResource("/database/"
-                + database + "-dataload.sql"));
+        databasePopulator.addScript(new ClassPathResource("/database/" + database + "-schema.sql"));
+        databasePopulator
+                .addScript(new ClassPathResource("/database/" + database + "-dataload.sql"));
         databasePopulator.setSqlScriptEncoding("UTF-8");
         databasePopulator.setIgnoreFailedDrops(true);
         bean.setDatabasePopulator(databasePopulator);
         return bean;
     }
 
+    // @formatter:off
     /**
      * Configure {@link TransactionManager} bean.
      * @return Bean of configured {@link DataSourceTransactionManager}
@@ -135,5 +133,6 @@ public class TodoJspMybatis3EnvConfig {
         bean.setRollbackOnCommitFailure(true);
         return bean;
     }
+    // @formatter:on
 
 }

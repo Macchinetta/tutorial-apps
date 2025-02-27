@@ -1,15 +1,14 @@
 package com.example.securelogin.config.app;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import org.passay.CharacterCharacteristicsRule;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -18,7 +17,6 @@ import org.passay.PasswordGenerator;
 import org.passay.PasswordValidator;
 import org.passay.Rule;
 import org.passay.UsernameRule;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +36,6 @@ import org.terasoluna.gfw.common.exception.ExceptionCodeResolver;
 import org.terasoluna.gfw.common.exception.ExceptionLogger;
 import org.terasoluna.gfw.common.exception.SimpleMappingExceptionCodeResolver;
 import org.terasoluna.gfw.web.exception.ExceptionLoggingFilter;
-
 import com.example.securelogin.app.common.filter.InputValidationFilter;
 import com.example.securelogin.app.common.validation.rule.EncodedPasswordHistoryRule;
 import com.example.securelogin.domain.common.scheduled.TempFileCleaner;
@@ -49,9 +46,7 @@ import com.example.securelogin.domain.common.scheduled.UnnecessaryReissueInfoCle
  */
 @Configuration
 @EnableAspectJAutoProxy
-@Import({ SecureLoginThymeleafDomainConfig.class,
-        SecureLoginReissueInfoCleanerConfig.class,
-        SecureLoginTempFileCleanerConfig.class })
+@Import({SecureLoginThymeleafDomainConfig.class})
 @EnableScheduling
 public class ApplicationContextConfig {
 
@@ -86,6 +81,7 @@ public class ApplicationContextConfig {
     private long tempFileCleanupSeconds;
 
 
+    // @formatter:off
     /**
      * Configure {@link PasswordEncoder} bean.
      * @return Bean of configured {@link DelegatingPasswordEncoder}
@@ -101,6 +97,7 @@ public class ApplicationContextConfig {
         */
         return new DelegatingPasswordEncoder("pbkdf2", idToPasswordEncoder);
     }
+    // @formatter:on
 
     /**
      * Configure {@link Pbkdf2PasswordEncoder} bean.
@@ -120,6 +117,7 @@ public class ApplicationContextConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // @formatter:off
     /* When using commented out PasswordEncoders, you need to add bcprov-jdk18on.jar to the dependency.
     @Bean
     public Argon2PasswordEncoder argon2PasswordEncoder() {
@@ -130,6 +128,7 @@ public class ApplicationContextConfig {
         return SCryptPasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
     */
+    // @formatter:on
 
     /**
      * Configure {@link PropertySourcesPlaceholderConfigurer} bean.
@@ -201,7 +200,8 @@ public class ApplicationContextConfig {
      */
     @Bean(name = "inputValidationFilter")
     public InputValidationFilter inputValidationFilter() {
-        InputValidationFilter bean = new InputValidationFilter(prohibitedChars, prohibitedCharsForFileName);
+        InputValidationFilter bean =
+                new InputValidationFilter(prohibitedChars, prohibitedCharsForFileName);
         return bean;
     }
 
@@ -348,8 +348,8 @@ public class ApplicationContextConfig {
      */
     @Bean(name = "expiredReissueInfoCleanTrigger")
     public PeriodicTrigger expiredReissueInfoCleanTrigger() {
-        return new PeriodicTrigger(Duration.of(reissueInfoCleanupSeconds,
-                TimeUnit.SECONDS.toChronoUnit()));
+        return new PeriodicTrigger(
+                Duration.of(reissueInfoCleanupSeconds, TimeUnit.SECONDS.toChronoUnit()));
     }
 
     /**
@@ -376,8 +376,8 @@ public class ApplicationContextConfig {
      */
     @Bean(name = "tempFileCleanTrigger")
     public PeriodicTrigger tempFileCleanTrigger() {
-        return new PeriodicTrigger(Duration.of(tempFileCleanupSeconds,
-                TimeUnit.SECONDS.toChronoUnit()));
+        return new PeriodicTrigger(
+                Duration.of(tempFileCleanupSeconds, TimeUnit.SECONDS.toChronoUnit()));
     }
 
     /**

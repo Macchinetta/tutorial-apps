@@ -29,12 +29,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
-
 import com.example.session.domain.model.Cart;
 import com.example.session.domain.model.CartItem;
 import com.example.session.domain.model.Goods;
 import com.example.session.domain.service.goods.GoodsService;
-
 import jakarta.inject.Inject;
 
 @Controller
@@ -66,8 +64,7 @@ public class GoodsController {
 
     // (3)
     @GetMapping(params = "categoryId")
-    public String changeCategoryId(GoodViewForm form, Pageable pageable,
-            Model model) {
+    public String changeCategoryId(GoodViewForm form, Pageable pageable, Model model) {
         criteria.setPage(pageable.getPageNumber());
         criteria.setCategoryId(form.getCategoryId());
         return showGoods(pageable, model);
@@ -75,8 +72,7 @@ public class GoodsController {
 
     // (4)
     @GetMapping(params = "page")
-    public String changePage(GoodViewForm form, Pageable pageable,
-            Model model) {
+    public String changePage(GoodViewForm form, Pageable pageable, Model model) {
         criteria.setPage(pageable.getPageNumber());
         form.setCategoryId(criteria.getCategoryId());
         return showGoods(pageable, model);
@@ -85,15 +81,13 @@ public class GoodsController {
     // (5)
     String showGoods(Pageable pageable, Model model) {
 
-        Page<Goods> page = goodsService.findByCategoryId(criteria
-                .getCategoryId(), pageable);
+        Page<Goods> page = goodsService.findByCategoryId(criteria.getCategoryId(), pageable);
         model.addAttribute("page", page);
         return "goods/showGoods";
     }
 
     @GetMapping("/{goodsId}")
-    public String showGoodsDetail(@PathVariable("goodsId") String goodsId,
-            Model model) {
+    public String showGoodsDetail(@PathVariable("goodsId") String goodsId, Model model) {
 
         Goods goods = goodsService.findOne(goodsId);
         model.addAttribute(goods);
@@ -106,8 +100,7 @@ public class GoodsController {
             RedirectAttributes attributes) {
 
         if (result.hasErrors()) {
-            ResultMessages messages = ResultMessages.error().add(
-                    "e.st.go.5001");
+            ResultMessages messages = ResultMessages.error().add("e.st.go.5001");
             attributes.addFlashAttribute(messages);
             return "redirect:/goods";
         }

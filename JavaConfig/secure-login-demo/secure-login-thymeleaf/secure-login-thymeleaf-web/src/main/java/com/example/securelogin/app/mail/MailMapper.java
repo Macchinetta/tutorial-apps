@@ -16,7 +16,6 @@
 package com.example.securelogin.app.mail;
 
 import org.mapstruct.Mapper;
-
 import com.example.securelogin.domain.model.ReceivedMail;
 
 @Mapper

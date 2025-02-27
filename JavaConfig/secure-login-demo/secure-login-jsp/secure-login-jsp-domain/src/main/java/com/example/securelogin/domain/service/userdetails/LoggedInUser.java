@@ -17,10 +17,8 @@ package com.example.securelogin.domain.service.userdetails;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-
 import com.example.securelogin.domain.model.Account;
 
 public class LoggedInUser extends User {
@@ -30,11 +28,10 @@ public class LoggedInUser extends User {
 
     private final LocalDateTime lastLoginDate;
 
-    public LoggedInUser(Account account, boolean isLocked,
-            LocalDateTime lastLoginDate,
+    public LoggedInUser(Account account, boolean isLocked, LocalDateTime lastLoginDate,
             List<SimpleGrantedAuthority> authorities) {
-        super(account.getUsername(), account.getPassword(), true, true, true,
-                !isLocked, authorities);
+        super(account.getUsername(), account.getPassword(), true, true, true, !isLocked,
+                authorities);
         this.account = account;
         this.lastLoginDate = lastLoginDate;
     }

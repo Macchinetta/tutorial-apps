@@ -16,7 +16,7 @@
 package com.example.todo.app.todo;
 
 import java.io.Serializable;
-
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -34,11 +34,11 @@ public class TodoForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // (2)
-    @NotNull(groups = { TodoFinish.class, TodoDelete.class })
+    @NotEmpty(groups = {TodoFinish.class, TodoDelete.class})
     private String todoId;
 
-    @NotNull(groups = { TodoCreate.class })
-    @Size(min = 1, max = 30, groups = { TodoCreate.class })
+    @NotNull(groups = {TodoCreate.class})
+    @Size(min = 1, max = 30, groups = {TodoCreate.class})
     private String todoTitle;
 
     public String getTodoId() {

@@ -20,10 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
 import org.terasoluna.gfw.common.message.ResultMessage;
 import org.terasoluna.gfw.common.message.ResultMessages;
-
 import com.example.security.domain.model.Account;
 import com.example.security.domain.repository.account.AccountRepository;
-
 import jakarta.inject.Inject;
 
 @Service
@@ -39,8 +37,8 @@ public class AccountSharedServiceImpl implements AccountSharedService {
         // (2)
         if (account == null) {
             ResultMessages messages = ResultMessages.error();
-            messages.add(ResultMessage.fromText(
-                    "The given account is not found! username=" + username));
+            messages.add(
+                    ResultMessage.fromText("The given account is not found! username=" + username));
             throw new ResourceNotFoundException(messages);
         }
         return account;

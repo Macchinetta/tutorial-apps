@@ -17,14 +17,11 @@ package com.example.securelogin.domain.service.fileupload;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.time.ClockFactory;
-
 import com.example.securelogin.domain.model.TempFile;
 import com.example.securelogin.domain.repository.fileupload.TempFileRepository;
-
 import jakarta.inject.Inject;
 
 @Service

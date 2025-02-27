@@ -1,7 +1,6 @@
 package com.example.todo.config.app;
 
 import javax.sql.DataSource;
-
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -15,11 +14,11 @@ import com.example.todo.config.app.mybatis.MybatisConfig;
  */
 @Configuration
 @MapperScan("com.example.todo.domain.repository")
-@Import({ TodoJspMybatis3EnvConfig.class })
+@Import({TodoJspMybatis3EnvConfig.class})
 public class TodoJspMybatis3InfraConfig {
 
     /**
-     * Configure {@link SqlSessionFactory} bean.
+     * Configure {@link SqlSessionFactoryBean} bean.
      * @param dataSource DataSource
      * @see com.example.todo.config.app.TodoJspMybatis3EnvConfig#dataSource()
      * @return Bean of configured {@link SqlSessionFactoryBean}

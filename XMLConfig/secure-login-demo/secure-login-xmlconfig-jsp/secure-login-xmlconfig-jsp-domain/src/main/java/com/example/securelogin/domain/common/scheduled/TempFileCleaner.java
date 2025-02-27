@@ -16,12 +16,9 @@
 package com.example.securelogin.domain.common.scheduled;
 
 import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.terasoluna.gfw.common.time.ClockFactory;
-
 import com.example.securelogin.domain.service.fileupload.FileUploadSharedService;
-
 import jakarta.inject.Inject;
 
 public class TempFileCleaner {
@@ -36,7 +33,7 @@ public class TempFileCleaner {
     int cleanupInterval;
 
     public void cleanup() {
-        fileUploadSharedService.cleanUp(LocalDateTime.now(dateFactory.tick())
-                .minusSeconds(cleanupInterval));
+        fileUploadSharedService
+                .cleanUp(LocalDateTime.now(dateFactory.tick()).minusSeconds(cleanupInterval));
     }
 }

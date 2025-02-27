@@ -4,11 +4,16 @@
     <artifactId>secure-login-thymeleaf-selenium</artifactId>
     <packaging>jar</packaging>
     <parent>
-        <version>1.10.0.RELEASE</version>
+        <version>1.11.0.RELEASE</version>
         <artifactId>secure-login-thymeleaf</artifactId>
         <groupId>com.example.securelogin</groupId>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <scm>
+        <connection>scm:git:git://github.com/Macchinetta/macchinetta-web-multi-blank.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Macchinetta/macchinetta-web-multi-blank.git</developerConnection>
+        <url>https://github.com/Macchinetta/macchinetta-web-multi-blank</url>
+    </scm>
 
     <build>
         <plugins>
@@ -23,7 +28,6 @@
                     <excludes>
                         <exclude>**/*IT.java</exclude>
                     </excludes>
-                
                     <argLine>-Dhttps.proxyHost=${http.proxyHost} -Dhttps.proxyPort=${http.proxyPort}</argLine>
                 </configuration>
             </plugin>
@@ -55,16 +59,16 @@
             <artifactId>webdrivermanager</artifactId>
             <scope>test</scope>
         </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.postgresql</groupId> -->
-<!--             <artifactId>postgresql</artifactId> -->
-<!--             <scope>test</scope> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>com.oracle.database.jdbc</groupId> -->
-<!--             <artifactId>ojdbc11</artifactId> -->
-<!--             <scope>test</scope> -->
-<!--         </dependency> -->
+        <!--         <dependency> -->
+        <!--             <groupId>org.postgresql</groupId> -->
+        <!--             <artifactId>postgresql</artifactId> -->
+        <!--             <scope>test</scope> -->
+        <!--         </dependency> -->
+        <!--         <dependency> -->
+        <!--             <groupId>com.oracle.database.jdbc</groupId> -->
+        <!--             <artifactId>ojdbc17</artifactId> -->
+        <!--             <scope>test</scope> -->
+        <!--         </dependency> -->
 
         <!-- Please set the appropriate version according to the web browser. -->
         <dependency>
@@ -72,7 +76,6 @@
             <artifactId>selenium-java</artifactId>
             <scope>test</scope>
         </dependency>
-    
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -90,14 +93,14 @@
             </activation>
         </profile>
         <profile>
-        <id>use_mavenplugin_param</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties>
-            <http.proxyHost>localhost</http.proxyHost>
-            <http.proxyPort>8080</http.proxyPort>
-        </properties>
+            <id>use_mavenplugin_param</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <http.proxyHost>localhost</http.proxyHost>
+                <http.proxyPort>8080</http.proxyPort>
+            </properties>
         </profile>
     </profiles>
 </project>

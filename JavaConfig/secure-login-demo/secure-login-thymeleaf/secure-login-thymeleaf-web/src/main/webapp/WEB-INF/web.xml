@@ -123,8 +123,8 @@
         <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
     </filter>
     <filter-mapping>
-            <filter-name>MultipartFilter</filter-name>
-            <url-pattern>/*</url-pattern>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -195,7 +195,7 @@
         <exception-type>org.springframework.web.multipart.MultipartException</exception-type>
         <location>/common/error/fileUploadError</location>
     </error-page>
-    
+
     <session-config>
         <!-- 30min -->
         <session-timeout>30</session-timeout>

@@ -1,7 +1,6 @@
 package com.example.session.config;
 
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +23,7 @@ public class TestContextConfig {
 
     /**
      * Configure PropertySourcesPlaceholderConfigurer bean.
+     * 
      * @param resources Path where the property file is located
      * @return Bean of configured PropertySourcesPlaceholderConfigurer
      */
@@ -37,6 +37,7 @@ public class TestContextConfig {
 
     /**
      * Configure {@link ExceptionLogger} bean.
+     * 
      * @return Bean of configured {@link ExceptionLogger}
      */
     @Bean("exceptionLogger")
@@ -46,6 +47,7 @@ public class TestContextConfig {
 
     /**
      * Configure {@link JdbcTemplate} bean.
+     * 
      * @param dataSource Bean defined by EnvConfig#dataSource
      * @see com.example.session.config.app.SessionTutorialCompleteThymeleafEnvConfig#dataSource()
      * @return Bean of configured {@link JdbcTemplate}

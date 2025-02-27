@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
-
 import com.example.securelogin.domain.model.PasswordReissueInfo;
 import com.example.securelogin.domain.service.passwordreissue.PasswordReissueService;
-
 import jakarta.inject.Inject;
 
 @Controller
@@ -56,14 +54,12 @@ public class PasswordReissueController {
 
     @PostMapping("create")
     public String createReissueInfo(@Validated CreateReissueInfoForm form,
-            BindingResult bindingResult, Model model,
-            RedirectAttributes attributes) {
+            BindingResult bindingResult, Model model, RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             return showCreateReissueInfoForm(form);
         }
 
-        String rawSecret = passwordReissueService.createAndSendReissueInfo(form
-                .getUsername());
+        String rawSecret = passwordReissueService.createAndSendReissueInfo(form.getUsername());
         attributes.addFlashAttribute("secret", rawSecret);
         return "redirect:/reissue/create?complete";
     }
@@ -86,15 +82,15 @@ public class PasswordReissueController {
     }
 
     @PostMapping("resetpassword")
-    public String resetPassword(@Validated PasswordResetForm form,
-            BindingResult bindingResult, Model model) {
+    public String resetPassword(@Validated PasswordResetForm form, BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             return showPasswordResetForm(form, model, form.getToken());
         }
 
         try {
-            passwordReissueService.resetPassword(form.getUsername(), form
-                    .getToken(), form.getSecret(), form.getNewPassword());
+            passwordReissueService.resetPassword(form.getUsername(), form.getToken(),
+                    form.getSecret(), form.getNewPassword());
             return "redirect:/reissue/resetpassword?complete";
         } catch (BusinessException e) {
             model.addAttribute(e.getResultMessages());

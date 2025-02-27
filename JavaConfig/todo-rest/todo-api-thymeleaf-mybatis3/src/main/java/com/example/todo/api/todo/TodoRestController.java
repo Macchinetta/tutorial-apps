@@ -18,7 +18,6 @@ package com.example.todo.api.todo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,10 +29,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.todo.domain.model.Todo;
 import com.example.todo.domain.service.todo.TodoService;
-
 import jakarta.inject.Inject;
 
 @RestController
@@ -59,8 +56,7 @@ public class TodoRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TodoResource postTodos(
-            @RequestBody @Validated TodoResource todoResource) {
+    public TodoResource postTodos(@RequestBody @Validated TodoResource todoResource) {
         Todo createdTodo = todoService.create(beanMapper.map(todoResource));
         TodoResource createdTodoResponse = beanMapper.map(createdTodo);
         return createdTodoResponse;

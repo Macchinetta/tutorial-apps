@@ -1,7 +1,7 @@
 package com.example.todo.config.web;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 import java.util.LinkedHashMap;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,7 +17,6 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.terasoluna.gfw.security.web.logging.UserIdMDCPutFilter;
 
 /**
@@ -33,8 +32,7 @@ public class SpringSecurityConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-                new AntPathRequestMatcher("/resources/**"));
+        return web -> web.ignoring().requestMatchers(antMatcher("/resources/**"));
     }
 
     /**
@@ -47,13 +45,10 @@ public class SpringSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin(Customizer.withDefaults());
         http.logout(Customizer.withDefaults());
-        http.exceptionHandling(ex -> ex.accessDeniedHandler(
-                accessDeniedHandler()));
-        http.addFilterAfter(userIdMDCPutFilter(),
-                AnonymousAuthenticationFilter.class);
+        http.exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler()));
+        http.addFilterAfter(userIdMDCPutFilter(), AnonymousAuthenticationFilter.class);
         http.sessionManagement(Customizer.withDefaults());
-        http.authorizeHttpRequests(authz -> authz.requestMatchers(
-                new AntPathRequestMatcher("/**")).permitAll());
+        http.authorizeHttpRequests(authz -> authz.requestMatchers(antMatcher("/**")).permitAll());
 
         return http.build();
     }
@@ -64,26 +59,24 @@ public class SpringSecurityConfig {
      */
     @Bean("accessDeniedHandler")
     public AccessDeniedHandler accessDeniedHandler() {
-        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers = new LinkedHashMap<>();
+        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers =
+                new LinkedHashMap<>();
 
         // Invalid CSRF authenticator error handler
         AccessDeniedHandlerImpl invalidCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        invalidCsrfTokenErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/invalidCsrfTokenError.jsp");
-        errorHandlers.put(InvalidCsrfTokenException.class,
-                invalidCsrfTokenErrorHandler);
+        invalidCsrfTokenErrorHandler
+                .setErrorPage("/WEB-INF/views/common/error/invalidCsrfTokenError.jsp");
+        errorHandlers.put(InvalidCsrfTokenException.class, invalidCsrfTokenErrorHandler);
 
         // Missing CSRF authenticator error handler
         AccessDeniedHandlerImpl missingCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        missingCsrfTokenErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/missingCsrfTokenError.jsp");
-        errorHandlers.put(MissingCsrfTokenException.class,
-                missingCsrfTokenErrorHandler);
+        missingCsrfTokenErrorHandler
+                .setErrorPage("/WEB-INF/views/common/error/missingCsrfTokenError.jsp");
+        errorHandlers.put(MissingCsrfTokenException.class, missingCsrfTokenErrorHandler);
 
         // Default error handler
         AccessDeniedHandlerImpl defaultErrorHandler = new AccessDeniedHandlerImpl();
-        defaultErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/accessDeniedError.jsp");
+        defaultErrorHandler.setErrorPage("/WEB-INF/views/common/error/accessDeniedError.jsp");
 
         return new DelegatingAccessDeniedHandler(errorHandlers, defaultErrorHandler);
     }

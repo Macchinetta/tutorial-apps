@@ -18,7 +18,6 @@ package com.example.session.app.account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-
 import com.example.session.domain.model.Account;
 
 @Mapper

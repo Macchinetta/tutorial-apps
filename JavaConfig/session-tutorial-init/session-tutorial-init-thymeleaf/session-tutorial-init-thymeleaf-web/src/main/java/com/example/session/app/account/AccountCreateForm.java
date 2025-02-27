@@ -17,11 +17,8 @@ package com.example.session.app.account;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.example.session.app.validation.Confirm;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

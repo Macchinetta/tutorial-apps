@@ -17,24 +17,20 @@ package com.example.securelogin.domain.service.authenticationevent;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.time.ClockFactory;
-
 import com.example.securelogin.domain.model.FailedAuthentication;
 import com.example.securelogin.domain.model.SuccessfulAuthentication;
 import com.example.securelogin.domain.repository.authenticationevent.FailedAuthenticationRepository;
 import com.example.securelogin.domain.repository.authenticationevent.SuccessfulAuthenticationRepository;
 import com.example.securelogin.domain.service.account.AccountSharedService;
-
 import jakarta.inject.Inject;
 
 @Service
 @Transactional
-public class AuthenticationEventSharedServiceImpl implements
-                                                  AuthenticationEventSharedService {
+public class AuthenticationEventSharedServiceImpl implements AuthenticationEventSharedService {
 
     @Inject
     ClockFactory dateFactory;
@@ -50,15 +46,13 @@ public class AuthenticationEventSharedServiceImpl implements
 
     @Transactional(readOnly = true)
     @Override
-    public List<SuccessfulAuthentication> findLatestSuccessEvents(
-            String username, int count) {
+    public List<SuccessfulAuthentication> findLatestSuccessEvents(String username, int count) {
         return successAuthenticationRepository.findLatest(username, count);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<FailedAuthentication> findLatestFailureEvents(String username,
-            int count) {
+    public List<FailedAuthentication> findLatestFailureEvents(String username, int count) {
         return failedAuthenticationRepository.findLatest(username, count);
     }
 
@@ -67,20 +61,19 @@ public class AuthenticationEventSharedServiceImpl implements
     public void authenticationSuccess(String username) {
         SuccessfulAuthentication successEvent = new SuccessfulAuthentication();
         successEvent.setUsername(username);
-        successEvent.setAuthenticationTimestamp(LocalDateTime.now(dateFactory
-                .tick()));
+        successEvent.setAuthenticationTimestamp(LocalDateTime.now(dateFactory.tick()));
 
         successAuthenticationRepository.create(successEvent);
         deleteFailureEventByUsername(username);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void authenticationFailure(String username) {
         if (accountSharedService.exists(username)) {
             FailedAuthentication failureEvents = new FailedAuthentication();
             failureEvents.setUsername(username);
-            failureEvents.setAuthenticationTimestamp(LocalDateTime.now(
-                    dateFactory.tick()));
+            failureEvents.setAuthenticationTimestamp(LocalDateTime.now(dateFactory.tick()));
 
             failedAuthenticationRepository.create(failureEvents);
         }

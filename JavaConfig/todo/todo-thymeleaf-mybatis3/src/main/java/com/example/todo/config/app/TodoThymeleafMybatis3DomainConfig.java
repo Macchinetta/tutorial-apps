@@ -16,13 +16,13 @@ import org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.example.todo.domain" })
-@Import({ TodoThymeleafMybatis3InfraConfig.class,
-    TodoThymeleafMybatis3CodeListConfig.class })
+@ComponentScan(basePackages = {"com.example.todo.domain"})
+@Import({TodoThymeleafMybatis3InfraConfig.class, TodoThymeleafMybatis3CodeListConfig.class})
 public class TodoThymeleafMybatis3DomainConfig {
 
     /**
      * Configure {@link ResultMessagesLoggingInterceptor} bean.
+     * 
      * @param exceptionLogger Bean defined by ApplicationContextConfig#exceptionLogger
      * @see com.example.todo.config.app.ApplicationContextConfig#exceptionLogger()
      * @return Bean of configured {@link ResultMessagesLoggingInterceptor}
@@ -37,6 +37,7 @@ public class TodoThymeleafMybatis3DomainConfig {
 
     /**
      * Configure messages logging AOP advisor.
+     * 
      * @param resultMessagesLoggingInterceptor Bean defined by #resultMessagesLoggingInterceptor
      * @see #resultMessagesLoggingInterceptor(ExceptionLogger)
      * @return Advisor configured for PointCut
@@ -45,8 +46,7 @@ public class TodoThymeleafMybatis3DomainConfig {
     public Advisor resultMessagesLoggingInterceptorAdvisor(
             ResultMessagesLoggingInterceptor resultMessagesLoggingInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(
-                "@within(org.springframework.stereotype.Service)");
+        pointcut.setExpression("@within(org.springframework.stereotype.Service)");
         return new DefaultPointcutAdvisor(pointcut, resultMessagesLoggingInterceptor);
     }
 }

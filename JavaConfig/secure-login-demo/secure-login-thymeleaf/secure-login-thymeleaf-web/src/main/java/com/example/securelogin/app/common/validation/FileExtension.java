@@ -17,19 +17,16 @@ package com.example.securelogin.app.common.validation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
 import com.example.securelogin.app.common.validation.FileExtension.List;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = { FileExtensionValidator.class })
+@Constraint(validatedBy = {FileExtensionValidator.class})
 @Target(FIELD)
 @Retention(RUNTIME)
 @Repeatable(List.class)

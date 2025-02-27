@@ -19,10 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
-
 import com.example.session.domain.model.Account;
 import com.example.session.domain.repository.account.AccountRepository;
-
 import jakarta.inject.Inject;
 
 @Service

@@ -16,11 +16,8 @@
 package com.example.securelogin.domain.common.scheduled;
 
 import java.time.LocalDateTime;
-
 import org.terasoluna.gfw.common.time.ClockFactory;
-
 import com.example.securelogin.domain.service.passwordreissue.PasswordReissueService;
-
 import jakarta.inject.Inject;
 
 public class UnnecessaryReissueInfoCleaner {
@@ -32,8 +29,7 @@ public class UnnecessaryReissueInfoCleaner {
     PasswordReissueService passwordReissueService;
 
     public void cleanup() {
-        passwordReissueService.removeExpired(LocalDateTime.now(dateFactory
-                .tick()));
+        passwordReissueService.removeExpired(LocalDateTime.now(dateFactory.tick()));
     }
 
 }

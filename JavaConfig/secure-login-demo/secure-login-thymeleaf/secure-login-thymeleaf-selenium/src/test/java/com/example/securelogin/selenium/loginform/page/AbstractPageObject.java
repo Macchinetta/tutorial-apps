@@ -47,11 +47,11 @@ public abstract class AbstractPageObject {
 
     public AbstractPageObject openWithDescription(String description) {
         if (url.contains("?")) {
-            webDriverOperations.displayPage(applicationContextUrl + url
-                    + "&testdescription=" + description);
+            webDriverOperations
+                    .displayPage(applicationContextUrl + url + "&testdescription=" + description);
         } else {
-            webDriverOperations.displayPage(applicationContextUrl + url
-                    + "?testdescription=" + description);
+            webDriverOperations
+                    .displayPage(applicationContextUrl + url + "?testdescription=" + description);
         }
         waitDefaultInterval();
         return this;

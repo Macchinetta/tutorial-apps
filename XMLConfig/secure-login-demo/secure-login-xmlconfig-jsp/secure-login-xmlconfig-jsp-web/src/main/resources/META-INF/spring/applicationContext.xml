@@ -3,16 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:aop="http://www.springframework.org/schema/aop"
-    
     xmlns:task="http://www.springframework.org/schema/task"
     xmlns:util="http://www.springframework.org/schema/util"
-xsi:schemaLocation="
-        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd
-        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
-    ">
+    xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd
+                        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd
+                        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <import resource="classpath:/META-INF/spring/secure-login-xmlconfig-jsp-domain.xml" />
 
@@ -75,7 +72,7 @@ xsi:schemaLocation="
 
     <!-- Filter. -->
     <bean id="exceptionLoggingFilter"
-        class="org.terasoluna.gfw.web.exception.ExceptionLoggingFilter" >
+        class="org.terasoluna.gfw.web.exception.ExceptionLoggingFilter">
         <property name="exceptionLogger" ref="exceptionLogger" />
     </bean>
 
@@ -83,8 +80,8 @@ xsi:schemaLocation="
 
 
     <bean id="inputValidationFilter" class="com.example.securelogin.app.common.filter.InputValidationFilter">
-        <constructor-arg index="0" value="${app.security.prohibitedChars}"/>
-        <constructor-arg index="1" value="${app.security.prohibitedCharsForFileName}"/>
+        <constructor-arg index="0" value="${app.security.prohibitedChars}" />
+        <constructor-arg index="1" value="${app.security.prohibitedCharsForFileName}" />
     </bean>
 
     <bean id="lengthRule" class="org.passay.LengthRule">

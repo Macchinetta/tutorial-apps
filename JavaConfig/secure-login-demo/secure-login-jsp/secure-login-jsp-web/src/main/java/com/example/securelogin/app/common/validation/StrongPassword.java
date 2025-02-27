@@ -18,20 +18,17 @@ package com.example.securelogin.app.common.validation;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
 import com.example.securelogin.app.common.validation.StrongPassword.List;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = { StrongPasswordValidator.class })
-@Target({ TYPE, ANNOTATION_TYPE })
+@Constraint(validatedBy = {StrongPasswordValidator.class})
+@Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Repeatable(List.class)
 public @interface StrongPassword {
@@ -43,7 +40,7 @@ public @interface StrongPassword {
 
     String newPasswordPropertyName();
 
-    @Target({ TYPE, ANNOTATION_TYPE })
+    @Target({TYPE, ANNOTATION_TYPE})
     @Retention(RUNTIME)
     @Documented
     public @interface List {

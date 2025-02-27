@@ -1,13 +1,26 @@
+/*
+ * Copyright(c) 2013 NTT Corporation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package com.example.securelogin.config;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -19,13 +32,15 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
+
 import com.github.macchinetta.tutorial.selenium.DBLog;
 import com.github.macchinetta.tutorial.selenium.DBLogAssertOperations;
 import com.github.macchinetta.tutorial.selenium.DBLogCleaner;
 import com.github.macchinetta.tutorial.selenium.PageSource;
 import com.github.macchinetta.tutorial.selenium.ScreenCapture;
-import com.github.macchinetta.tutorial.selenium.WebDriverCreator;
-import com.github.macchinetta.tutorial.selenium.WebDriverManagerConfigurer;
+import com.github.macchinetta.tutorial.selenium.webdrivers.ChromeDriverFactoryBean;
+import com.github.macchinetta.tutorial.selenium.webdrivers.EdgeDriverFactoryBean;
+import com.github.macchinetta.tutorial.selenium.webdrivers.FirefoxDriverFactoryBean;
 
 /**
  * Bean definition to SeleniumContext configure .
@@ -65,6 +80,12 @@ public class SeleniumContextConfig {
     private String readTimeout;
 
     /**
+     * selenium.headless property.
+     */
+    @Value("${selenium.headless}")
+    private boolean headless;
+
+    /**
      * Configure {@link PropertySourcesPlaceholderConfigurer} bean.
      * @param properties Path where the property file is located
      * @return Bean of configured {@link PropertySourcesPlaceholderConfigurer}
@@ -85,8 +106,7 @@ public class SeleniumContextConfig {
     public DataSource dataSource() {
         BasicDataSource bean = new BasicDataSource();
         bean.setDriverClassName("org.h2.Driver");
-        bean.setUrl("jdbc:h2:tcp://" + dbHost + ":" + dbPort
-                + "/mem:secure-login-thymeleaf");
+        bean.setUrl("jdbc:h2:tcp://" + dbHost + ":" + dbPort + "/mem:secure-login-thymeleaf");
         bean.setUsername("sa");
         bean.setPassword("");
         bean.setDefaultAutoCommit(false);
@@ -168,15 +188,6 @@ public class SeleniumContextConfig {
     }
 
     /**
-     * Generate {@link ScreenCapture}.
-     * @return Generated {@link ScreenCapture}
-     */
-    @Bean("screenCapture")
-    public ScreenCapture screenCapture() {
-        return new ScreenCapture();
-    }
-
-    /**
      * Configure the {@link DBLog} bean.
      * @return Bean of configured {@link DBLog}
      */
@@ -185,15 +196,6 @@ public class SeleniumContextConfig {
         DBLog bean = new DBLog();
         bean.setDataSource(dataSource());
         return bean;
-    }
-
-    /**
-     * Generate {@link PageSource} bean.
-     * @return Generated {@link PageSource}
-     */
-    @Bean("pageSource")
-    public PageSource pageSource() {
-        return new PageSource();
     }
 
     /**
@@ -207,35 +209,65 @@ public class SeleniumContextConfig {
         return bean;
     }
 
+
     /**
-     * Generate {@link WebDriverCreator} bean.
-     * @return Generated {@link WebDriverCreator}
+     * Configure {@link ScreenCapture} bean.
+     * @return Bean of configured {@link ScreenCapture}
      */
-    @Bean
-    public WebDriverCreator webDriverCreator() {
-        return new WebDriverCreator();
+    @Bean("screenCapture")
+    public ScreenCapture screenCapture() {
+        return new ScreenCapture();
     }
 
     /**
-     * Configure the {@link WebDriverManagerConfigurer} bean.
-     * @return Bean of configured {@link WebDriverManagerConfigurer}
+     * Configure {@link PageSource} bean.
+     * @return Bean of configured {@link PageSource}
      */
-    @Bean
-    public WebDriverManagerConfigurer webDriverManagerConfigurer() {
-        WebDriverManagerConfigurer bean = new WebDriverManagerConfigurer();
+    @Bean("pageSource")
+    public PageSource pageSource() {
+        return new PageSource();
+    }
+
+    /**
+     * Configure {@link FirefoxDriverFactoryBean} bean.
+     * @return Bean of configured {@link FirefoxDriverFactoryBean}
+     */
+    @Bean("webDriver")
+    @Profile({"firefox", "default"})
+    @Scope("prototype")
+    public FirefoxDriverFactoryBean firefoxDriverFactoryBean() {
+        FirefoxDriverFactoryBean bean = new FirefoxDriverFactoryBean();
         bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
         return bean;
     }
 
-
     /**
-     * Configure {@link WebDriver} bean.
-     * @return Bean of configured {@link FirefoxDriver}
+     * Configure {@link EdgeDriverFactoryBean} bean.
+     * @return Bean of configured {@link EdgeDriverFactoryBean}
      */
     @Bean("webDriver")
+    @Profile("edge")
     @Scope("prototype")
-    public WebDriver webDriver() {
-        return new FirefoxDriver();
+    public EdgeDriverFactoryBean edgeDriverFactoryBean() {
+        EdgeDriverFactoryBean bean = new EdgeDriverFactoryBean();
+        bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
+        return bean;
+    }
+
+    /**
+     * Configure {@link ChromeDriverFactoryBean} bean.
+     * @return Bean of configured {@link ChromeDriverFactoryBean}
+     */
+    @Bean("webDriver")
+    @Profile("chrome")
+    @Scope("prototype")
+    public ChromeDriverFactoryBean chromeDriverFactoryBean() {
+        ChromeDriverFactoryBean bean = new ChromeDriverFactoryBean();
+        bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
+        return bean;
     }
 
 }

@@ -16,11 +16,9 @@
 package com.example.securelogin.app.account;
 
 import java.io.Serializable;
-
 import org.springframework.web.multipart.MultipartFile;
 import org.terasoluna.gfw.common.validator.constraints.Compare;
 import org.terasoluna.gfw.common.validator.constraints.Compare.Operator;
-
 import com.example.securelogin.app.common.validation.DomainRestrictedEmail;
 import com.example.securelogin.app.common.validation.DomainRestrictedURL;
 import com.example.securelogin.app.common.validation.FileExtension;
@@ -30,13 +28,14 @@ import com.example.securelogin.app.common.validation.NotContainControlCharsExcep
 import com.example.securelogin.app.common.validation.UploadFileMaxSize;
 import com.example.securelogin.app.common.validation.UploadFileNotEmpty;
 import com.example.securelogin.app.common.validation.UploadFileRequired;
-
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-@Compare(left = "email", right = "confirmEmail", operator = Operator.EQUAL, requireBoth = true, node = Compare.Node.ROOT_BEAN)
+@Compare(left = "email", right = "confirmEmail", operator = Operator.EQUAL, requireBoth = true,
+        node = Compare.Node.ROOT_BEAN)
 public class AccountCreateForm implements Serializable {
 
     public static interface Confirm {
@@ -65,31 +64,31 @@ public class AccountCreateForm implements Serializable {
     @NotNull
     @NotContainControlChars
     @Size(min = 1, max = 128)
-    @DomainRestrictedEmail(allowedDomains = { "domainexample.co.jp",
-            "somedomainexample.co.jp" }, allowSubDomain = true)
+    @DomainRestrictedEmail(allowedDomains = {"domainexample.co.jp", "somedomainexample.co.jp"},
+            allowSubDomain = true)
     private String email;
 
-    @NotNull
+    @NotEmpty
     @NotContainControlChars
     private String confirmEmail;
 
-    @NotNull
+    @NotEmpty
     @NotContainControlChars
-    @DomainRestrictedURL(allowedDomains = { "jp" })
+    @DomainRestrictedURL(allowedDomains = {"jp"})
     private String url;
 
     @UploadFileRequired(groups = Confirm.class)
     @UploadFileNotEmpty(groups = Confirm.class)
     @UploadFileMaxSize
-    @FileExtension(extensions = { "jpg", "png", "gif" })
+    @FileExtension(extensions = {"jpg", "png", "gif"})
     @FileNamePattern(pattern = "[a-zA-Z0-9_-]+\\.[a-zA-Z]{3}")
     private transient MultipartFile image;
 
     @NotNull(groups = CreateAccount.class)
-    @Size(max = 40)
+    @Size(min = 1, max = 40)
     private String imageId;
 
-    @NotNull
+    @NotEmpty
     @NotContainControlCharsExceptNewlines
     private String profile;
 

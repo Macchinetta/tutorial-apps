@@ -1,7 +1,6 @@
 package com.example.securelogin.config.app;
 
 import javax.sql.DataSource;
-
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -16,11 +15,11 @@ import com.icegreen.greenmail.spring.GreenMailBean;;
  */
 @Configuration
 @MapperScan("com.example.securelogin.domain.repository")
-@Import({ SecureLoginThymeleafEnvConfig.class })
+@Import({SecureLoginThymeleafEnvConfig.class})
 public class SecureLoginThymeleafInfraConfig {
 
     /**
-     * Configure {@link SqlSessionFactory} bean.
+     * Configure {@link SqlSessionFactoryBean} bean.
      * @param dataSource DataSource
      * @see com.example.securelogin.config.app.SecureLoginThymeleafEnvConfig#dataSource()
      * @return Bean of configured {@link SqlSessionFactoryBean}
@@ -37,7 +36,7 @@ public class SecureLoginThymeleafInfraConfig {
      * Configure {@link GreenMailBean} bean.
      * @return Bean of configured {@link GreenMailBean}
      */
-    @Bean(name ="greenMailBean")
+    @Bean(name = "greenMailBean")
     public GreenMailBean greenMailBean() {
         return new GreenMailBean();
     }

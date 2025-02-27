@@ -14,9 +14,8 @@ import org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor;
  * Bean definitions for domain layer.
  */
 @Configuration
-@ComponentScan(basePackages = { "com.example.todo.domain" })
-@Import({ TodoApiThymeleafInfraConfig.class,
-    TodoApiThymeleafCodeListConfig.class })
+@ComponentScan(basePackages = {"com.example.todo.domain"})
+@Import({TodoApiThymeleafInfraConfig.class, TodoApiThymeleafCodeListConfig.class})
 public class TodoApiThymeleafDomainConfig {
 
     /**
@@ -43,8 +42,7 @@ public class TodoApiThymeleafDomainConfig {
     public Advisor resultMessagesLoggingInterceptorAdvisor(
             ResultMessagesLoggingInterceptor resultMessagesLoggingInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(
-                "@within(org.springframework.stereotype.Service)");
+        pointcut.setExpression("@within(org.springframework.stereotype.Service)");
         return new DefaultPointcutAdvisor(pointcut, resultMessagesLoggingInterceptor);
     }
 }

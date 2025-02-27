@@ -16,22 +16,18 @@
 package com.example.securelogin.config.app;
 
 import java.util.concurrent.Executor;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.PeriodicTrigger;
-
 import com.example.securelogin.domain.common.scheduled.UnnecessaryReissueInfoCleaner;
-
-import jakarta.inject.Inject;;
+import jakarta.inject.Inject;
 
 /**
  * Scheduler definition.
  */
 @Configuration
-public class SecureLoginReissueInfoCleanerConfig implements
-                                                 SchedulingConfigurer {
+public class SecureLoginReissueInfoCleanerConfig implements SchedulingConfigurer {
 
     /**
      * Bean of Executor
@@ -57,7 +53,7 @@ public class SecureLoginReissueInfoCleanerConfig implements
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.setScheduler(reissueInfoCleanupTaskScheduler);
-        taskRegistrar.addTriggerTask(() -> expiredReissueInfoCleaner
-                .cleanup(), expiredReissueInfoCleanTrigger);
+        taskRegistrar.addTriggerTask(() -> expiredReissueInfoCleaner.cleanup(),
+                expiredReissueInfoCleanTrigger);
     }
 }

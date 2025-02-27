@@ -20,14 +20,12 @@ import org.passay.PasswordValidator;
 import org.passay.RuleResult;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class StrongPasswordValidator implements
-                                     ConstraintValidator<StrongPassword, Object> {
+public class StrongPasswordValidator implements ConstraintValidator<StrongPassword, Object> {
 
     @Inject
     @Named("characteristicPasswordValidator")
@@ -40,31 +38,26 @@ public class StrongPasswordValidator implements
     @Override
     public void initialize(StrongPassword constraintAnnotation) {
         usernamePropertyName = constraintAnnotation.usernamePropertyName();
-        newPasswordPropertyName = constraintAnnotation
-                .newPasswordPropertyName();
+        newPasswordPropertyName = constraintAnnotation.newPasswordPropertyName();
     }
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         BeanWrapper beanWrapper = new BeanWrapperImpl(value);
-        String username = (String) beanWrapper.getPropertyValue(
-                usernamePropertyName);
-        String newPassword = (String) beanWrapper.getPropertyValue(
-                newPasswordPropertyName);
+        String username = (String) beanWrapper.getPropertyValue(usernamePropertyName);
+        String newPassword = (String) beanWrapper.getPropertyValue(newPasswordPropertyName);
 
-        RuleResult result = characteristicPasswordValidator.validate(
-                new PasswordData(username, newPassword));
+        RuleResult result =
+                characteristicPasswordValidator.validate(new PasswordData(username, newPassword));
 
         if (result.isValid()) {
             return true;
         } else {
             context.disableDefaultConstraintViolation();
 
-            for (String message : characteristicPasswordValidator.getMessages(
-                    result)) {
+            for (String message : characteristicPasswordValidator.getMessages(result)) {
                 context.buildConstraintViolationWithTemplate(message)
-                        .addPropertyNode(newPasswordPropertyName)
-                        .addConstraintViolation();
+                        .addPropertyNode(newPasswordPropertyName).addConstraintViolation();
             }
             return false;
         }

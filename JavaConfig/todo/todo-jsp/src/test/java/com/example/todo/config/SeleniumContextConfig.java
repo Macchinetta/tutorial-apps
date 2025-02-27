@@ -15,8 +15,6 @@
  */
 package com.example.todo.config;
 
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +23,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import com.github.macchinetta.tutorial.selenium.FirefoxDriverFactoryBean;
 import com.github.macchinetta.tutorial.selenium.PageSource;
 import com.github.macchinetta.tutorial.selenium.ScreenCapture;
-import com.github.macchinetta.tutorial.selenium.WebDriverCreator;
-import com.github.macchinetta.tutorial.selenium.WebDriverManagerConfigurer;
+import com.github.macchinetta.tutorial.selenium.webdrivers.ChromeDriverFactoryBean;
+import com.github.macchinetta.tutorial.selenium.webdrivers.EdgeDriverFactoryBean;
+import com.github.macchinetta.tutorial.selenium.webdrivers.FirefoxDriverFactoryBean;
 
 /**
  * Bean definition to SeleniumContext configure .
@@ -37,6 +35,12 @@ import com.github.macchinetta.tutorial.selenium.WebDriverManagerConfigurer;
 @Configuration
 @EnableTransactionManagement
 public class SeleniumContextConfig {
+
+    /**
+     * selenium.headless property.
+     */
+    @Value("${selenium.headless}")
+    private boolean headless;
 
     /**
      * Configure {@link PropertySourcesPlaceholderConfigurer} bean.
@@ -70,57 +74,45 @@ public class SeleniumContextConfig {
     }
 
     /**
-     * Configure {@link WebDriverCreator} bean.
-     * @return Bean of configured {@link WebDriverCreator}
-     */
-    @Bean
-    public WebDriverCreator webDriverCreator() {
-        return new WebDriverCreator();
-    }
-
-    /**
-     * Configure {@link WebDriverManagerConfigurer} bean.
-     * @return Bean of configured {@link WebDriverManagerConfigurer}
-     */
-    @Bean
-    public WebDriverManagerConfigurer webDriverManagerConfigurer() {
-        WebDriverManagerConfigurer bean = new WebDriverManagerConfigurer();
-        bean.setPropertyFileLocation("wdm.properties");
-        return bean;
-    }
-
-    /**
      * Configure {@link FirefoxDriverFactoryBean} bean.
      * @return Bean of configured {@link FirefoxDriverFactoryBean}
      */
     @Bean("webDriver")
-    @Profile({"firefox","default"})
+    @Profile({"firefox", "default"})
     @Scope("prototype")
     public FirefoxDriverFactoryBean firefoxDriverFactoryBean() {
         FirefoxDriverFactoryBean bean = new FirefoxDriverFactoryBean();
         bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
         return bean;
     }
 
     /**
-     * Configure {@link ChromeDriver} bean.
-     * @return Bean of configured {@link ChromeDriver}
+     * Configure {@link EdgeDriverFactoryBean} bean.
+     * @return Bean of configured {@link EdgeDriverFactoryBean}
+     */
+    @Bean("webDriver")
+    @Profile("edge")
+    @Scope("prototype")
+    public EdgeDriverFactoryBean edgeDriverFactoryBean() {
+        EdgeDriverFactoryBean bean = new EdgeDriverFactoryBean();
+        bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
+        return bean;
+    }
+
+    /**
+     * Configure {@link ChromeDriverFactoryBean} bean.
+     * @return Bean of configured {@link ChromeDriverFactoryBean}
      */
     @Bean("webDriver")
     @Profile("chrome")
     @Scope("prototype")
-    public ChromeDriver chromeDriver() {
-        return new ChromeDriver();
+    public ChromeDriverFactoryBean chromeDriverFactoryBean() {
+        ChromeDriverFactoryBean bean = new ChromeDriverFactoryBean();
+        bean.setPropertyFileLocation("wdm.properties");
+        bean.setHeadless(this.headless);
+        return bean;
     }
 
-    /**
-     * Configure {@link InternetExplorerDriver} bean.
-     * @return Bean of configured {@link InternetExplorerDriver}
-     */
-    @Bean("webDriver")
-    @Profile("ie")
-    @Scope("prototype")
-    public InternetExplorerDriver internetExplorerDriver() {
-        return new InternetExplorerDriver();
-    }
 }

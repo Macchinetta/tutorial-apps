@@ -16,7 +16,6 @@
 package com.example.todo.domain.repository.todo;
 
 import java.util.Collection;
-
 import com.example.todo.domain.model.Todo;
 
 public interface TodoRepository {

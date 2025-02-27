@@ -2,9 +2,7 @@ package com.example.session.selenium.welcome;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 import java.io.IOException;
-
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import jakarta.inject.Inject;
 
 import com.example.session.config.SeleniumContextConfig;
@@ -22,7 +19,7 @@ import com.example.session.config.SeleniumContextConfig;
  * Executes the test for the application home page.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { SeleniumContextConfig.class })
+@ContextConfiguration(classes = {SeleniumContextConfig.class})
 public class HelloIT {
 
     @Inject
@@ -39,8 +36,7 @@ public class HelloIT {
 
         webDriver.get(applicationContextUrl);
 
-        assertThat(webDriver.findElement(By.id("title")).getText(),
-                is("Hello world!"));
+        assertThat(webDriver.findElement(By.id("title")).getText(), is("Hello world!"));
     }
 
     /**

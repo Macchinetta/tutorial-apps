@@ -1,7 +1,7 @@
 package com.example.security.config.web;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 import java.util.LinkedHashMap;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
@@ -22,7 +22,6 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.csrf.InvalidCsrfTokenException;
 import org.springframework.security.web.csrf.MissingCsrfTokenException;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.terasoluna.gfw.security.web.logging.UserIdMDCPutFilter;
 
 /**
@@ -38,8 +37,7 @@ public class SpringSecurityConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers(
-                new AntPathRequestMatcher("/resources/**"));
+        return web -> web.ignoring().requestMatchers(antMatcher("/resources/**"));
     }
 
     /**
@@ -51,23 +49,16 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // (1)
-        http.formLogin(login -> login
-                .loginPage("/login/loginForm")
-                .loginProcessingUrl("/login")
+        http.formLogin(login -> login.loginPage("/login/loginForm").loginProcessingUrl("/login")
                 .failureUrl("/login/loginForm?error=true"));
         // (2)
-        http.logout(logout -> logout
-                .logoutSuccessUrl("/")
-                .deleteCookies("JSESSIONID"));
-        http.exceptionHandling(ex -> ex.accessDeniedHandler(
-                accessDeniedHandler()));
-        http.addFilterAfter(userIdMDCPutFilter(),
-                AnonymousAuthenticationFilter.class);
+        http.logout(logout -> logout.logoutSuccessUrl("/").deleteCookies("JSESSIONID"));
+        http.exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler()));
+        http.addFilterAfter(userIdMDCPutFilter(), AnonymousAuthenticationFilter.class);
         http.sessionManagement(Customizer.withDefaults());
         // (3)
-        http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(new AntPathRequestMatcher("/login/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/**")).authenticated());
+        http.authorizeHttpRequests(authz -> authz.requestMatchers(antMatcher("/login/**"))
+                .permitAll().requestMatchers(antMatcher("/**")).authenticated());
 
         return http.build();
     }
@@ -80,8 +71,7 @@ public class SpringSecurityConfig {
      */
     // (4)
     @Bean
-    public AuthenticationProvider authProvider(
-            UserDetailsService sampleUserDetailsService,
+    public AuthenticationProvider authProvider(UserDetailsService sampleUserDetailsService,
             @Qualifier("passwordEncoder") PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(sampleUserDetailsService);
@@ -96,26 +86,24 @@ public class SpringSecurityConfig {
      */
     @Bean("accessDeniedHandler")
     public AccessDeniedHandler accessDeniedHandler() {
-        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers = new LinkedHashMap<>();
+        LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> errorHandlers =
+                new LinkedHashMap<>();
 
         // Invalid CSRF authenticator error handler
         AccessDeniedHandlerImpl invalidCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        invalidCsrfTokenErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/invalidCsrfTokenError.jsp");
-        errorHandlers.put(InvalidCsrfTokenException.class,
-                invalidCsrfTokenErrorHandler);
+        invalidCsrfTokenErrorHandler
+                .setErrorPage("/WEB-INF/views/common/error/invalidCsrfTokenError.jsp");
+        errorHandlers.put(InvalidCsrfTokenException.class, invalidCsrfTokenErrorHandler);
 
         // Missing CSRF authenticator error handler
         AccessDeniedHandlerImpl missingCsrfTokenErrorHandler = new AccessDeniedHandlerImpl();
-        missingCsrfTokenErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/missingCsrfTokenError.jsp");
-        errorHandlers.put(MissingCsrfTokenException.class,
-                missingCsrfTokenErrorHandler);
+        missingCsrfTokenErrorHandler
+                .setErrorPage("/WEB-INF/views/common/error/missingCsrfTokenError.jsp");
+        errorHandlers.put(MissingCsrfTokenException.class, missingCsrfTokenErrorHandler);
 
         // Default error handler
         AccessDeniedHandlerImpl defaultErrorHandler = new AccessDeniedHandlerImpl();
-        defaultErrorHandler.setErrorPage(
-                "/WEB-INF/views/common/error/accessDeniedError.jsp");
+        defaultErrorHandler.setErrorPage("/WEB-INF/views/common/error/accessDeniedError.jsp");
 
         return new DelegatingAccessDeniedHandler(errorHandlers, defaultErrorHandler);
     }

@@ -3,7 +3,6 @@ package com.example.todo.config.app;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -27,9 +26,10 @@ import org.terasoluna.gfw.web.exception.ExceptionLoggingFilter;
  */
 @Configuration
 @EnableAspectJAutoProxy
-@Import({ TodoThymeleafMybatis3DomainConfig.class })
+@Import({TodoThymeleafMybatis3DomainConfig.class})
 public class ApplicationContextConfig {
 
+    // @formatter:off
     /**
      * Configure {@link PasswordEncoder} bean.
      * @return Bean of configured {@link DelegatingPasswordEncoder}
@@ -45,6 +45,7 @@ public class ApplicationContextConfig {
         */
         return new DelegatingPasswordEncoder("pbkdf2", idToPasswordEncoder);
     }
+    // @formatter:on
 
     /**
      * Configure {@link Pbkdf2PasswordEncoder} bean.
@@ -64,6 +65,7 @@ public class ApplicationContextConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // @formatter:off
     /* When using commented out PasswordEncoders, you need to add bcprov-jdk18on.jar to the dependency.
     @Bean
     public Argon2PasswordEncoder argon2PasswordEncoder() {
@@ -74,6 +76,7 @@ public class ApplicationContextConfig {
         return SCryptPasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
     */
+    // @formatter:on
 
     /**
      * Configure {@link PropertySourcesPlaceholderConfigurer} bean.

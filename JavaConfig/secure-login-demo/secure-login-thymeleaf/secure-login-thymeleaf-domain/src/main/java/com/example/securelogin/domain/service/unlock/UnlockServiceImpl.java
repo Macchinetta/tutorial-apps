@@ -17,10 +17,8 @@ package com.example.securelogin.domain.service.unlock;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.securelogin.domain.service.account.AccountSharedService;
 import com.example.securelogin.domain.service.authenticationevent.AuthenticationEventSharedService;
-
 import jakarta.inject.Inject;
 
 @Transactional

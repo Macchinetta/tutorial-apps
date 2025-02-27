@@ -24,11 +24,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.example.securelogin.domain.model.Account;
 import com.example.securelogin.domain.service.passwordchange.PasswordChangeService;
 import com.example.securelogin.domain.service.userdetails.LoggedInUser;
-
 import jakarta.inject.Inject;
 
 @Controller
@@ -54,18 +52,15 @@ public class PasswordChangeController {
 
     @PostMapping
     public String change(@AuthenticationPrincipal LoggedInUser userDetails,
-            @Validated PasswordChangeForm form, BindingResult bindingResult,
-            Model model) {
+            @Validated PasswordChangeForm form, BindingResult bindingResult, Model model) {
 
         Account account = userDetails.getAccount();
-        if (bindingResult.hasErrors() || !account.getUsername().equals(form
-                .getUsername())) {
+        if (bindingResult.hasErrors() || !account.getUsername().equals(form.getUsername())) {
             model.addAttribute(account);
             return "passwordchange/changeForm";
         }
 
-        passwordService.updatePassword(form.getUsername(), form
-                .getNewPassword());
+        passwordService.updatePassword(form.getUsername(), form.getNewPassword());
 
         return "redirect:/password?complete";
 

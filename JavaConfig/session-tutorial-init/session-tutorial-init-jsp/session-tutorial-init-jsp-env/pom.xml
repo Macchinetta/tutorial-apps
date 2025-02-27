@@ -6,9 +6,14 @@
     <parent>
         <groupId>com.example.session</groupId>
         <artifactId>session-tutorial-init-jsp</artifactId>
-        <version>1.10.0.RELEASE</version>
+        <version>1.11.0.RELEASE</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <scm>
+        <connection>scm:git:git://github.com/Macchinetta/macchinetta-web-multi-blank.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Macchinetta/macchinetta-web-multi-blank.git</developerConnection>
+        <url>https://github.com/Macchinetta/macchinetta-web-multi-blank</url>
+    </scm>
 
     <build>
         <finalName>${buildFinalName}</finalName>

@@ -1,11 +1,8 @@
 package com.example.securelogin.config.app;
 
 import java.time.Duration;
-
 import java.util.Arrays;
-
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -148,16 +145,16 @@ public class SecureLoginJspEnvConfig {
         bean.setDataSource(dataSource());
 
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("/database/"
-                + database + "-schema.sql"));
-        databasePopulator.addScript(new ClassPathResource("/database/"
-                + database + "-dataload.sql"));
+        databasePopulator.addScript(new ClassPathResource("/database/" + database + "-schema.sql"));
+        databasePopulator
+                .addScript(new ClassPathResource("/database/" + database + "-dataload.sql"));
         databasePopulator.setSqlScriptEncoding("UTF-8");
         databasePopulator.setIgnoreFailedDrops(true);
         bean.setDatabasePopulator(databasePopulator);
         return bean;
     }
 
+    // @formatter:off
     /**
      * Configure {@link TransactionManager} bean.
      * @return Bean of configured {@link DataSourceTransactionManager}
@@ -169,13 +166,14 @@ public class SecureLoginJspEnvConfig {
         bean.setRollbackOnCommitFailure(true);
         return bean;
     }
+    // @formatter:on
 
 
     /**
      * Configure {@link JavaMailSender} bean.
      * @return Bean of configured {@link JavaMailSender}
      */
-    @Bean(name ="mailSender")
+    @Bean(name = "mailSender")
     public JavaMailSender mailSender() {
         JavaMailSenderImpl bean = new JavaMailSenderImpl();
         bean.setHost(host);
@@ -187,7 +185,7 @@ public class SecureLoginJspEnvConfig {
      * Configure {@link SimpleMailMessage} bean.
      * @return Bean of configured {@link SimpleMailMessage}
      */
-    @Bean(name ="passwordReissueMessage")
+    @Bean(name = "passwordReissueMessage")
     public SimpleMailMessage passwordReissueMessage() {
         SimpleMailMessage bean = new SimpleMailMessage();
         bean.setFrom(from);
@@ -199,11 +197,10 @@ public class SecureLoginJspEnvConfig {
      * Configure {@link CacheManager} bean.
      * @return Bean of configured {@link CacheManager}
      */
-    @Bean(name ="cacheManager")
+    @Bean(name = "cacheManager")
     public CacheManager cacheManager() {
         SimpleCacheManager bean = new SimpleCacheManager();
-        bean.setCaches(Arrays.asList(
-                new ConcurrentMapCache("isInitialPassword"),
+        bean.setCaches(Arrays.asList(new ConcurrentMapCache("isInitialPassword"),
                 new ConcurrentMapCache("isCurrentPasswordExpired")));
         return bean;
     }

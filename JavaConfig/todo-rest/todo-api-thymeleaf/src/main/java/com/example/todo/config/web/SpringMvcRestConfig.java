@@ -16,7 +16,6 @@
 package com.example.todo.config.web;
 
 import java.util.List;
-
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -37,14 +36,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.terasoluna.gfw.common.exception.ExceptionLogger;
 import org.terasoluna.gfw.web.exception.HandlerExceptionResolverLoggingInterceptor;
 import org.terasoluna.gfw.web.logging.TraceLoggingInterceptor;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 
 /**
  * Configure SpringMVCRest.
  */
-@ComponentScan(basePackages = { "com.example.todo.api" }) // (5)
+@ComponentScan(basePackages = {"com.example.todo.api"}) // (5)
 @EnableAspectJAutoProxy // (7)
 @EnableWebMvc
 @Configuration
@@ -83,8 +81,7 @@ public class SpringMvcRestConfig implements WebMvcConfigurer {
     @Bean("objectMapper")
     public ObjectMapper objectMapper() {
         // (3)
-        return Jackson2ObjectMapperBuilder.json().build().setDateFormat(
-                new StdDateFormat());
+        return Jackson2ObjectMapperBuilder.json().build().setDateFormat(new StdDateFormat());
     }
 
     /**
@@ -92,8 +89,7 @@ public class SpringMvcRestConfig implements WebMvcConfigurer {
      */
     // (4)
     @Override
-    public void configureMessageConverters(
-            List<HttpMessageConverter<?>> converters) {
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // If you want to add a converter after adding the default converter,
         // use extendMessageConverters(List<HttpMessageConverter<?>> converters).
         converters.add(jsonMessageConverter());
@@ -114,8 +110,7 @@ public class SpringMvcRestConfig implements WebMvcConfigurer {
      * @param interceptor {@link HandlerInterceptor}
      */
     // (6)
-    private void addInterceptor(InterceptorRegistry registry,
-            HandlerInterceptor interceptor) {
+    private void addInterceptor(InterceptorRegistry registry, HandlerInterceptor interceptor) {
         registry.addInterceptor(interceptor).addPathPatterns("/**")
                 .excludePathPatterns("/resources/**", "/*/*.html");
     }
@@ -140,14 +135,16 @@ public class SpringMvcRestConfig implements WebMvcConfigurer {
     @Bean(name = "handlerExceptionResolverLoggingInterceptor")
     public HandlerExceptionResolverLoggingInterceptor handlerExceptionResolverLoggingInterceptor(
             ExceptionLogger exceptionLogger) {
-        HandlerExceptionResolverLoggingInterceptor bean = new HandlerExceptionResolverLoggingInterceptor();
+        HandlerExceptionResolverLoggingInterceptor bean =
+                new HandlerExceptionResolverLoggingInterceptor();
         bean.setExceptionLogger(exceptionLogger);
         return bean;
     }
 
     /**
      * Configure messages logging AOP advisor.
-     * @param handlerExceptionResolverLoggingInterceptor Bean defined by #handlerExceptionResolverLoggingInterceptor
+     * @param handlerExceptionResolverLoggingInterceptor Bean defined by
+     *        #handlerExceptionResolverLoggingInterceptor
      * @see #handlerExceptionResolverLoggingInterceptor(ExceptionLogger)
      * @return Advisor configured for PointCut
      */

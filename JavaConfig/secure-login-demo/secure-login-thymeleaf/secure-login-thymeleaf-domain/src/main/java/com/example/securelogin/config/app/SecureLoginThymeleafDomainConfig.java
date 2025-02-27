@@ -3,7 +3,6 @@ package com.example.securelogin.config.app;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import com.example.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.terasoluna.gfw.common.exception.ExceptionLogger;
 import org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor;
+import com.example.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor;
 
 /**
  * Bean definitions for domain layer.
@@ -18,8 +18,7 @@ import org.terasoluna.gfw.common.exception.ResultMessagesLoggingInterceptor;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.example.securelogin.domain"})
-@Import({ SecureLoginThymeleafInfraConfig.class,
-    SecureLoginThymeleafCodeListConfig.class })
+@Import({SecureLoginThymeleafInfraConfig.class, SecureLoginThymeleafCodeListConfig.class})
 public class SecureLoginThymeleafDomainConfig {
 
     /**
@@ -46,8 +45,7 @@ public class SecureLoginThymeleafDomainConfig {
     public Advisor resultMessagesLoggingInterceptorAdvisor(
             ResultMessagesLoggingInterceptor resultMessagesLoggingInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(
-                "@within(org.springframework.stereotype.Service)");
+        pointcut.setExpression("@within(org.springframework.stereotype.Service)");
         return new DefaultPointcutAdvisor(pointcut, resultMessagesLoggingInterceptor);
     }
 
@@ -67,8 +65,7 @@ public class SecureLoginThymeleafDomainConfig {
     @Bean
     public Advisor serviceCallLoggingInterceptorAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression(
-                "@within(org.springframework.stereotype.Service)");
+        pointcut.setExpression("@within(org.springframework.stereotype.Service)");
         return new DefaultPointcutAdvisor(pointcut, serviceCallLoggingInterceptor());
     }
 }

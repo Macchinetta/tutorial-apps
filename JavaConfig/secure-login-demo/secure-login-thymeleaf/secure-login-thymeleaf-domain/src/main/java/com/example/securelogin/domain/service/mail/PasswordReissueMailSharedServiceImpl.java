@@ -18,16 +18,13 @@ package com.example.securelogin.domain.service.mail;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.terasoluna.gfw.common.exception.SystemException;
-
 import com.example.securelogin.domain.common.message.MessageKeys;
 import com.example.securelogin.domain.model.ReceivedMail;
 import com.icegreen.greenmail.spring.GreenMailBean;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.mail.Message;
@@ -35,8 +32,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
 @Service
-public class PasswordReissueMailSharedServiceImpl implements
-                                                  PasswordReissueMailSharedService {
+public class PasswordReissueMailSharedServiceImpl implements PasswordReissueMailSharedService {
 
     @Inject
     JavaMailSender mailSender;
@@ -64,11 +60,9 @@ public class PasswordReissueMailSharedServiceImpl implements
             ReceivedMail mail = new ReceivedMail();
             try {
                 mail.setTo(message.getFrom()[0].toString());
-                mail.setFrom(message.getRecipients(Message.RecipientType.TO)[0]
-                        .toString());
+                mail.setFrom(message.getRecipients(Message.RecipientType.TO)[0].toString());
                 mail.setSubject(message.getSubject());
-                mail.setText(message.getContent().toString().replace("\r\n",
-                        ""));
+                mail.setText(message.getContent().toString().replace("\r\n", ""));
                 mails.add(mail);
             } catch (MessagingException e) {
                 throw new SystemException(MessageKeys.E_SL_FW_9001, e);
